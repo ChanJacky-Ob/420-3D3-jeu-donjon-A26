@@ -1,4 +1,4 @@
-from models.comportement import Comportement
+from comportement import Comportement
 
 class Ennemi:        #facilite lecture seulement
     def __init__(self, nom:str, hp:int, attaque:int, comportement:Comportement):

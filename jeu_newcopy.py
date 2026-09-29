@@ -1,9 +1,9 @@
 
-from models.ennemi import Ennemi
-from models.comportement_agressif import ComportementAgressif
-from models.comportement_defensif import ComportementDefensif
-from models.comportement_aleatoire import ComportementAleatoire
-from models.comportement_furtif import ComportementFurtif
+from ennemi import Ennemi
+from models.comportement.comportement_agressif import ComportementAgressif
+from models.comportement.comportement_defensif import ComportementDefensif
+from models.comportement.comportement_aleatoire import ComportementAleatoire
+from models.comportement.comportement_furtif import ComportementFurtif
 
 class Jeu:
     def __init__(self):

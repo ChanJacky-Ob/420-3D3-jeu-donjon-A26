@@ -1,4 +1,4 @@
-from models.comportement import Comportement
+from comportement import Comportement
 
 
 class Ennemi:
