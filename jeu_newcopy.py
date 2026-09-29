@@ -5,12 +5,13 @@ from models.comportements.comportement_agressif import ComportementAgressif
 from models.comportements.comportement_defensif import ComportementDefensif
 from models.comportements.comportement_aleatoire import ComportementAleatoire
 from models.comportements.comportement_furtif import ComportementFurtif
+from models.comportements.boss import ComportementBoss
 from models.actions.action_defense import ActionDefense
 class Jeu:
     def __init__(self):
-        self.heros_hp = 100
-        self.heros_hp_max = 100
-        self.heros_attaque = 20
+        self.heros_hp = 200
+        self.heros_hp_max = 200
+        self.heros_attaque = 30
         
 
         self.ennemis = [#falcutatif si ordre est respecter
@@ -18,6 +19,7 @@ class Jeu:
             Ennemi("Dragon", 100, 20,ComportementDefensif()),
             Ennemi("Voleur", 30, 15,ComportementFurtif() ),
             Ennemi("Spectre", 40, 10,ComportementAleatoire() ),
+            Ennemi("Demon", 90, 30,ComportementBoss() ),
         ]
 
     def ennemis_vivants(self):
@@ -95,14 +97,16 @@ class Jeu:
             # Adaptation des comportements
             for ennemi in self.ennemis_vivants():
                 if ennemi.hp < ennemi.hp_max * 0.3  :
-                    ennemi.set_comportement(ComportementDefensif)
+                    ennemi.set_comportement(ComportementDefensif())
                     print(f"  ⚡ {ennemi.nom} change de tactique — il devient Défensif !")
                 
 
             print()
             tour += 1
+        if not cible.est_vivant():
+            print(f"💀 {cible.nom} est vaincu !")    
 
-        if self.heros_hp > 0:
+        if self.heros_hp > 0 or cible.nom == "Demon" :
             print("\n===========================================")
             print("  🏆 VICTOIRE ! Tous les ennemis sont vaincus !")
             print("===========================================\n")
