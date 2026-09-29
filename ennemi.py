@@ -1,34 +1,34 @@
-from random import random
+from models.comportement import Comportement
+
 
 class Ennemi:
-    def __init__(self, nom, hp, attaque, comportement):
+
+    def __init__(self, nom: str, hp: int, attaque: int,
+                 comportement: Comportement) -> None:
         self.nom = nom
         self.hp = hp
         self.hp_max = hp
         self.attaque = attaque
-        self.comportement = comportement  # "agressif", "defensif", "aleatoire", "furtif"
-        self._tour_furtif = 0
+        self._comportement = comportement   # ← composition
 
-    def agir(self):
-        """Décide si l'ennemi attaque ou se défend selon son comportement."""
-        if self.comportement == "agressif":
-            return "attaque"
+    def agir(self) -> str:
+        return self._comportement.agir(self)   # ← délégation
 
-        elif self.comportement == "defensif":
-            if self.hp < self.hp_max * 0.5:
-                return "defend"
-            else:
-                return "attaque"
+    def set_comportement(self, comportement: Comportement) -> None:
+        self._comportement = comportement       # ← remplacement
 
-        elif self.comportement == "aleatoire":
-            return random.choice(["attaque", "defend"])
+    def get_comportement(self) -> Comportement:
+        return self._comportement
 
-        elif self.comportement == "furtif":
-            self._tour_furtif += 1
-            if self._tour_furtif % 2 == 0:
-                return "defend"
-            else:
-                return "attaque"
+    def recevoir_degats(self, degats: int) -> None:
+        self.hp = max(0, self.hp - degats)
+
+    def est_vivant(self) -> bool:
+        return self.hp > 0
+
+    def __str__(self) -> str:
+        return f"{self.nom} (HP: {self.hp}/{self.hp_max})"
+            
 
     def recevoir_degats(self, degats):
         self.hp = max(0, self.hp - degats)
