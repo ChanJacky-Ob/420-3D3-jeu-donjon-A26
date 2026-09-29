@@ -106,3 +106,5 @@ Héros : 90 HP
 ===========================================
 Tour 2
 ```
+Avant (héritage) :   Dragon EST UN EnnemiDefensif
+Après (stratégie) :  Dragon A UN comportement défensif
